@@ -5,7 +5,11 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// Habilitar CORS para o frontend em produção
+app.use(cors({
+  origin: 'https://relatorio-rondas.onrender.com'  // Substitua pela URL do seu frontend no Render
+}));
+
 app.use(bodyParser.json());
 
 // Serve o index.html direto da raiz
@@ -62,6 +66,10 @@ app.post('/gerar_relatorio', (req, res) => {
     res.json({ relatorio: relatorio });
 });
 
+// Servir o arquivo estático de produção (caso tenha outros arquivos estáticos, como CSS ou JS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
