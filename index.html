@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Relatórios de Rondas</title>
+    <title>Gerador de Relatórios de Rondas - Criado por Luis Eduardo Rodrigues Royo</title>
     <style>
         body {
             font-family: sans-serif;
@@ -37,6 +37,12 @@
             background-color: #f9f9f9;
             white-space: pre-wrap; /* Para preservar as quebras de linha do relatório */
         }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -57,8 +63,12 @@
         <div id="resultado"></div>
     </div>
 
+    <footer>
+        <p>Desenvolvido por Luis Eduardo Rodrigues Royo</p>
+    </footer>
+
     <script>
-   async function gerarRelatorio() {
+        async function gerarRelatorio() {
             const texto = document.getElementById('textoRondas').value;
             const residencial = document.getElementById('nomeResidencial').value;
             const data = document.getElementById('dataRelatorio').value;
