@@ -5,18 +5,24 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Habilitar CORS para o frontend em produção
+// CORS – permite apenas o seu frontend no Render
 app.use(cors({
-  origin: 'https://relatorio-rondas.onrender.com'  // Substitua pela URL do seu frontend no Render
+    origin: 'https://relatorio-rondas.onrender.com',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
 }));
 
 app.use(bodyParser.json());
 
-// Serve o index.html direto da raiz
+// Serve arquivos estáticos (como index.html) da raiz
+app.use(express.static(__dirname));
+
+// Rota principal – carrega o index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Função que gera o relatório
 function gerarRelatorio(texto, residencial, dataStr) {
     const linhas = texto.split('\n');
     const rondas = [];
@@ -55,21 +61,19 @@ function gerarRelatorio(texto, residencial, dataStr) {
     return relatorioFinal;
 }
 
+// Endpoint da API
 app.post('/gerar_relatorio', (req, res) => {
     const { texto, residencial, data } = req.body;
 
     if (!texto || !residencial || !data) {
-        return res.status(400).json({ erro: 'Por favor, forneça "texto", "residencial" e "data" no corpo da requisição.' });
+        return res.status(400).json({ erro: 'Por favor, forneça "texto", "residencial" e "data".' });
     }
 
     const relatorio = gerarRelatorio(texto, residencial, data);
-    res.json({ relatorio: relatorio });
+    res.json({ relatorio });
 });
 
-// Servir o arquivo estático de produção (caso tenha outros arquivos estáticos, como CSS ou JS)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Iniciar o servidor
+// Inicia o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
