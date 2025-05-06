@@ -1,11 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve o index.html direto da raiz
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 function gerarRelatorio(texto, residencial, dataStr) {
     const linhas = texto.split('\n');
@@ -44,7 +50,6 @@ function gerarRelatorio(texto, residencial, dataStr) {
     const relatorioFinal = `Plantão ${dataPlantao} (18h às 06h)\n\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas.join('\n')}\n\n✅ Total: ${total} rondas no plantão`;
     return relatorioFinal;
 }
-
 
 app.post('/gerar_relatorio', (req, res) => {
     const { texto, residencial, data } = req.body;
