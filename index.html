@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Relatórios de Rondas</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* Para preservar as quebras de linha do relatório */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Relatórios de Rondas</h1>
+
+        <label for="textoRondas">Cole os dados das rondas:</label>
+        <textarea id="textoRondas" rows="10"></textarea>
+
+        <label for="nomeResidencial">Nome do Residencial:</label>
+        <input type="text" id="nomeResidencial">
+
+        <label for="dataRelatorio">Data (ex: 06/05/2025):</label>
+        <input type="text" id="dataRelatorio">
+
+        <button onclick="gerarRelatorio()">Gerar Relatório</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+   async function gerarRelatorio() {
+            const texto = document.getElementById('textoRondas').value;
+            const residencial = document.getElementById('nomeResidencial').value;
+            const data = document.getElementById('dataRelatorio').value;
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = 'Gerando relatório...';
+
+            try {
+                const response = await fetch('http://localhost:3000/gerar_relatorio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ texto: texto, residencial: residencial, data: data })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    resultadoDiv.textContent = `Erro ao gerar relatório: ${error.erro || response.statusText}`;
+                    return;
+                }
+
+                const dataResposta = await response.json();
+                resultadoDiv.textContent = dataResposta.relatorio;
+
+            } catch (error) {
+                resultadoDiv.textContent = `Erro na comunicação com o servidor: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
