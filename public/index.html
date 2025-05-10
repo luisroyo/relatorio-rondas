@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Relatórios de Rondas</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Gerador de Relatórios de Rondas</h1>
 
-        <label for="textoRondas">Cole os dados das rondas:</label>
-        <textarea id="textoRondas" rows="10"></textarea>
+        <form id="formRelatorio" onsubmit="gerarRelatorio(event)">
+            <label for="textoRondas">Cole os dados das rondas:</label>
+            <textarea id="textoRondas" rows="10" required></textarea>
 
-        <label for="nomeResidencial">Nome do Residencial:</label>
-        <input type="text" id="nomeResidencial">
+            <label for="nomeResidencial">Nome do Residencial:</label>
+            <input type="text" id="nomeResidencial" required>
 
-        <label for="dataRelatorio">Data (ex: 06/05/2025):</label>
-        <input type="text" id="dataRelatorio">
+            <label for="dataRelatorio">Data (ex: 06/05/2025):</label>
+            <input type="text" id="dataRelatorio" required>
 
-        <label for="escala">Escolha a Escala:</label>
-        <select id="escala">
-            <option value="18-06">18h às 06h</option>
-            <option value="06-18">06h às 18h</option>
-        </select>
+            <label for="escala">Escolha a Escala:</label>
+            <select id="escala" required>
+                <option value="18-06">18h às 06h</option>
+                <option value="06-18">06h às 18h</option>
+            </select>
 
-        <button onclick="gerarRelatorio()">Gerar Relatório</button>
+            <button type="submit">Gerar Relatório</button>
+        </form>
 
         <div id="resultado"></div>
 
-        <footer>
+        <footer id="footer">
             <p>Desenvolvido por Luis Eduardo Rodrigues Royo</p>
         </footer>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

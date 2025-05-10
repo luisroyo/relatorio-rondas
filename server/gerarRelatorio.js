@@ -11,6 +11,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
         { tipo: 'termino', regex: /^(\d{1,2}:\d{2}).*?t[ée]rmino/i }
     ];
 
+    // Identificar os eventos de início e término nas linhas
     for (const linha of linhas) {
         for (const r of regexes) {
             const match = linha.match(r.regex);
@@ -25,6 +26,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
     let inicioPendente = null;
     const alertas = [];
 
+    // Organizar os eventos de início e término
     for (const evento of eventos) {
         if (evento.tipo === 'inicio') {
             if (inicioPendente) {
@@ -37,17 +39,21 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
         }
     }
 
+    // Caso ainda haja um início pendente no final
     if (inicioPendente) {
         alertas.push(`⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`);
     }
 
+    // Preparar o relatório
     const relatorioLinhas = rondas.map(r => `\tInício: ${r.inicio} – Término: ${r.termino}`).join('\n');
-    const total = rondas.length;
+    const totalRondas = rondas.length;
     const dataPlantao = dataStr.split('/').slice(0, 3).join('/');
 
+    // Ajustar a escala
     const escala = escalaStr === '06-18' ? '06h às 18h' : '18h às 06h';
 
-    return `Plantão ${dataPlantao} (${escala})\n\nCondomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${total} rondas no plantão\n\n${alertas.join('\n')}`;
+    // Retornar o relatório final
+    return `Plantão ${dataPlantao} (${escala})\n\nCondomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join('\n')}`;
 }
 
 module.exports = { gerarRelatorio };
