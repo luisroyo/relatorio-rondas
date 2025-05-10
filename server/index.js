@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const { gerarRelatorio } = require('./gerarRelatorio');
 
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -13,7 +12,7 @@ app.use(cors());  // Permitir CORS
 app.use(bodyParser.json());  // Parseia o corpo das requisições para JSON
 
 // Servir arquivos estáticos da pasta 'public'
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota POST para gerar o relatório
 app.post('/gerar_relatorio', (req, res) => {
@@ -33,7 +32,7 @@ app.post('/gerar_relatorio', (req, res) => {
     try {
         // Gerar o relatório
         const relatorio = gerarRelatorio(texto, residencial, data, escala);
-        res.json({ relatorio });
+        res.json({ relatorio });  // Retorna o relatório em formato JSON
     } catch (err) {
         // Caso algum erro ocorra ao gerar o relatório
         console.error('Erro ao gerar relatório:', err);
