@@ -44,8 +44,13 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
         alertas.push(`⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`);
     }
 
-    // Preparar o relatório
-    const relatorioLinhas = rondas.map(r => `\tInício: ${r.inicio} – Término: ${r.termino}`).join('\n');
+    // Preparar o relatório com alinhamento
+    const relatorioLinhas = rondas.map(r => {
+        const inicioFormatado = r.inicio.padEnd(7, ' ');
+        const terminoFormatado = r.termino.padEnd(7, ' ');
+        return ` Início: ${inicioFormatado}– Término: ${terminoFormatado}`;
+    }).join('\n');
+
     const totalRondas = rondas.length;
     const dataPlantao = dataStr.split('/').slice(0, 3).join('/');
 
@@ -53,7 +58,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
     const escala = escalaStr === '06-18' ? '06h às 18h' : '18h às 06h';
 
     // Retornar o relatório final
-    return `Plantão ${dataPlantao} (${escala})\n\nCondomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join('\n')}`;
+    return `Plantão ${dataPlantao} (${escala})\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join('\n')}`;
 }
 
 module.exports = { gerarRelatorio };

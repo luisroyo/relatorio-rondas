@@ -19,13 +19,11 @@ async function gerarRelatorio(event) {
 
     try {
         // Enviando a requisição para o servidor
-        const response = await fetch('/gerar_relatorio', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ texto, residencial, data, escala })
-        });
+        const response = await fetch('http://localhost:3000/gerar_relatorio', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ texto, residencial, data, escala })
+});
 
         // Verificando a resposta
         if (!response.ok) {

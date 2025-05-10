@@ -74,13 +74,17 @@ button:hover {
 
 /* Estilo do campo de resultado */
 #resultado {
-    margin-top: 20px;
-    padding: 15px;
+    white-space: pre-wrap;
+    font-family: monospace;
     background-color: #f1f1f1;
+    padding: 15px;
     border-radius: 8px;
-    font-size: 1.1rem;
+    margin-top: 20px;
+    font-size: 1rem;
     color: #333;
 }
+
+
 
 /* Estilo do rodapé */
 #footer {
