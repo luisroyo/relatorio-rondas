@@ -1,95 +1,97 @@
 /* Resetando o estilo básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Configurações gerais do layout */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fa;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 /* Estilo da container principal */
 .container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 100%;
-    max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Estilo do título */
 h1 {
-    text-align: center;
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
 }
 
 /* Estilo do formulário */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* Estilo dos campos de input e textarea */
-input, select, textarea {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease-in-out;
+input,
+select,
+textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #3498db;
-    outline: none;
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
 }
 
 /* Estilo do botão */
 button {
-    padding: 12px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #3498db;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 12px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 /* Estilo do campo de resultado */
 #resultado {
-    white-space: pre-wrap;
-    font-family: monospace;
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    font-size: 1rem;
-    color: #333;
+  white-space: pre-wrap;
+  font-family: monospace;
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #333;
 }
-
-
 
 /* Estilo do rodapé */
 #footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #7f8c8d;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #7f8c8d;
 }
