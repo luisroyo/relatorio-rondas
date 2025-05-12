@@ -3,10 +3,10 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
   const eventosEncontrados = [];
 
   const regexes = [
-    { tipo: "inicio", regex: /(?:in[ií]cio|inicio).*?(\d{1,2}\s*:\s*\d{2})/i },
-    { tipo: "termino", regex: /(?:t[ée]rmino|termino|final).*?(\d{1,2}\s*:\s*\d{2})/i },
-    { tipo: "inicio", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i },
-    { tipo: "termino", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i },
+    { tipo: "inicio", regex: /(?:in[ií]cio|inicio)\s*de\s*ronda.*?(\d{1,2}\s*:\s*\d{2})/i },
+    { tipo: "termino", regex: /(?:t[ée]rmino|termino)\s*de\s*ronda.*?(\d{1,2}\s*:\s*\d{2})/i },
+    { tipo: "inicio", regex: /vtr\s*\d+:\s*(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i },
+    { tipo: "termino", regex: /vtr\s*\d+:\s*(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i },
     { tipo: "inicio", regex: /^(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i },
     { tipo: "termino", regex: /^(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i },
   ];
@@ -57,7 +57,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
   const dataPlantao = dataStr.split("/").slice(0, 3).join("/");
   const escala = escalaStr === "06-18" ? "06h às 18h" : "18h às 06h";
 
-  return `Plantão ${dataPlantao} (${escala})\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join("\n")}`;
+  return `Plantão ${dataPlantao} (${escala})\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão}\n\n${alertas.join("\n")}`;
 }
 
 module.exports = { gerarRelatorio };
