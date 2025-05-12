@@ -12,9 +12,9 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
-  min-height: 100vh; /* Alterado para min-height para garantir que o body ocupe pelo menos a altura da tela */
+  min-height: 100vh;
   margin: 0;
-  align-items: flex-start; /* Alinhar os itens ao início (topo) */
+  align-items: flex-start;
 }
 
 /* Estilo da container principal */
@@ -23,8 +23,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  width: 90%; /* Alterado para porcentagem para melhor responsividade */
-  max-width: 600px; /* Mantendo uma largura máxima para telas maiores */
+  width: 90%;
+  max-width: 960px; /* Aumentando a largura máxima para acomodar duas colunas */
 }
 
 /* Estilo do título */
@@ -33,7 +33,31 @@ h1 {
   font-size: 2rem;
   color: #2c3e50;
   margin-bottom: 20px;
-  word-break: break-word; /* Adicionado para evitar que palavras longas quebrem o layout */
+  word-break: break-word;
+}
+
+/* Novo estilo para o container principal do conteúdo (duas colunas) */
+.main-content {
+  display: flex;
+  gap: 20px; /* Espaçamento entre as colunas */
+}
+
+/* Estilo para a área de entrada (formulário) */
+.input-area {
+  flex: 1; /* Ocupa a mesma largura que a área de saída por padrão */
+}
+
+/* Estilo para a área de saída (relatório) */
+.output-area {
+  flex: 1; /* Ocupa a mesma largura que a área de entrada por padrão */
+}
+
+.output-area h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-top: 0; /* Remover a margem padrão do h2 */
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 /* Estilo do formulário */
@@ -45,7 +69,7 @@ form {
 
 /* Estilo dos labels */
 label {
-  display: block; /* Garante que cada label ocupe uma linha inteira */
+  display: block;
   font-size: 1rem;
   color: #555;
   margin-bottom: 5px;
@@ -60,8 +84,8 @@ textarea {
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s ease-in-out;
-  width: 100%; /* Garante que os campos ocupem a largura total do container */
-  box-sizing: border-box; /* Impede que padding e border aumentem a largura total */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus,
@@ -81,7 +105,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%; /* Garante que o botão ocupe a largura total do container */
+  width: 100%;
 }
 
 button:hover {
@@ -95,10 +119,11 @@ button:hover {
   background-color: #f1f1f1;
   padding: 15px;
   border-radius: 8px;
-  margin-top: 20px;
+  margin-top: 0; /* Ajustado para alinhar com o título da seção */
   font-size: 1rem;
   color: #333;
-  overflow-x: auto; /* Adicionado para lidar com relatórios muito largos */
+  overflow-x: auto;
+  min-height: 200px; /* Altura mínima para a área de resultado */
 }
 
 /* Estilo do rodapé */
@@ -107,4 +132,15 @@ button:hover {
   margin-top: 40px;
   font-size: 0.9rem;
   color: #7f8c8d;
+}
+
+/* Estilos responsivos para telas menores */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column; /* Empilhar em telas menores */
+  }
+
+  .container {
+    width: 95%;
+  }
 }
