@@ -3,15 +3,15 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
   const eventos = [];
 
   const regexes = [
-    { tipo: "inicio", regex: /(?:in[ií]cio|inicio).*?(\d{1,2}:\d{2})/i },
+    { tipo: "inicio", regex: /(?:in[ií]cio|inicio).*?(\d{1,2}\s*:\s*\d{2})/i }, // Espaços ao redor de :
     {
       tipo: "termino",
-      regex: /(?:t[ée]rmino|termino|final).*?(\d{1,2}:\d{2})/i,
+      regex: /(?:t[ée]rmino|termino|final).*?(\d{1,2}\s*:\s*\d{2})/i, // Espaços ao redor de :
     },
-    { tipo: "inicio", regex: /vtr.*?(\d{1,2}:\d{2}).*?in[ií]cio/i },
-    { tipo: "termino", regex: /vtr.*?(\d{1,2}:\d{2}).*?t[ée]rmino/i },
-    { tipo: "inicio", regex: /^(\d{1,2}:\d{2}).*?in[ií]cio/i },
-    { tipo: "termino", regex: /^(\d{1,2}:\d{2}).*?t[ée]rmino/i },
+    { tipo: "inicio", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i }, // Espaços ao redor de :
+    { tipo: "termino", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i }, // Espaços ao redor de :
+    { tipo: "inicio", regex: /^(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i }, // Espaços ao redor de :
+    { tipo: "termino", regex: /^(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i }, // Espaços ao redor de :
   ];
 
   // Identificar os eventos de início e término nas linhas
@@ -19,7 +19,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
     for (const r of regexes) {
       const match = linha.match(r.regex);
       if (match) {
-        eventos.push({ tipo: r.tipo, hora: match[1].padStart(5, "0") });
+        eventos.push({ tipo: r.tipo, hora: match[1].replace(/\s/g, "").padStart(5, "0") }); // Remover espaços e padronizar
         break;
       }
     }
