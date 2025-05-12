@@ -1,5 +1,5 @@
 function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
-  const linhas = texto.split("\n");
+  const linhas = texto.split("\n").map(linha => linha.trimStart()); // Remover espaços do início
   const eventos = [];
 
   const regexes = [
