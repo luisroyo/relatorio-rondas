@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  margin: 0;
+  margin: 20px; /* Adicionando margem ao body para evitar que o container grude nas bordas */
   align-items: flex-start;
 }
 
@@ -24,7 +24,10 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 90%;
-  max-width: 960px; /* Aumentando a largura máxima para acomodar duas colunas */
+  max-width: 960px;
+  display: flex; /* Adicionando flex para controlar o alinhamento vertical dos filhos */
+  flex-direction: column; /* Organizar os filhos verticalmente */
+  align-items: stretch; /* Esticar os filhos para ocupar a largura total do container */
 }
 
 /* Estilo do título */
@@ -39,23 +42,24 @@ h1 {
 /* Novo estilo para o container principal do conteúdo (duas colunas) */
 .main-content {
   display: flex;
-  gap: 20px; /* Espaçamento entre as colunas */
+  gap: 20px;
+  flex: 1; /* Permitir que a área de conteúdo cresça e empurre o footer para baixo */
 }
 
 /* Estilo para a área de entrada (formulário) */
 .input-area {
-  flex: 1; /* Ocupa a mesma largura que a área de saída por padrão */
+  flex: 1;
 }
 
 /* Estilo para a área de saída (relatório) */
 .output-area {
-  flex: 1; /* Ocupa a mesma largura que a área de entrada por padrão */
+  flex: 1;
 }
 
 .output-area h2 {
   font-size: 1.5rem;
   color: #2c3e50;
-  margin-top: 0; /* Remover a margem padrão do h2 */
+  margin-top: 0;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -119,11 +123,11 @@ button:hover {
   background-color: #f1f1f1;
   padding: 15px;
   border-radius: 8px;
-  margin-top: 0; /* Ajustado para alinhar com o título da seção */
+  margin-top: 0;
   font-size: 1rem;
   color: #333;
   overflow-x: auto;
-  min-height: 200px; /* Altura mínima para a área de resultado */
+  min-height: 200px;
 }
 
 /* Estilo do rodapé */
@@ -132,12 +136,13 @@ button:hover {
   margin-top: 40px;
   font-size: 0.9rem;
   color: #7f8c8d;
+  padding: 10px 0; /* Adicionando um pouco de padding vertical ao footer */
 }
 
 /* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
   .main-content {
-    flex-direction: column; /* Empilhar em telas menores */
+    flex-direction: column;
   }
 
   .container {
