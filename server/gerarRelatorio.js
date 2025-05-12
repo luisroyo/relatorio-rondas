@@ -1,26 +1,23 @@
 function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
-  const linhas = texto.split("\n").map(linha => linha.trimStart()); // Remover espaços do início
-  const eventos = [];
+  const linhas = texto.split("\n").map(linha => linha.trimStart());
+  const eventosEncontrados = [];
 
   const regexes = [
-    { tipo: "inicio", regex: /(?:in[ií]cio|inicio).*?(\d{1,2}\s*:\s*\d{2})/i }, // Espaços ao redor de :
-    {
-      tipo: "termino",
-      regex: /(?:t[ée]rmino|termino|final).*?(\d{1,2}\s*:\s*\d{2})/i, // Espaços ao redor de :
-    },
-    { tipo: "inicio", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i }, // Espaços ao redor de :
-    { tipo: "termino", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i }, // Espaços ao redor de :
-    { tipo: "inicio", regex: /^(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i }, // Espaços ao redor de :
-    { tipo: "termino", regex: /^(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i }, // Espaços ao redor de :
+    { tipo: "inicio", regex: /(?:in[ií]cio|inicio).*?(\d{1,2}\s*:\s*\d{2})/i },
+    { tipo: "termino", regex: /(?:t[ée]rmino|termino|final).*?(\d{1,2}\s*:\s*\d{2})/i },
+    { tipo: "inicio", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i },
+    { tipo: "termino", regex: /vtr.*?(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i },
+    { tipo: "inicio", regex: /^(\d{1,2}\s*:\s*\d{2}).*?in[ií]cio/i },
+    { tipo: "termino", regex: /^(\d{1,2}\s*:\s*\d{2}).*?t[ée]rmino/i },
   ];
 
-  // Identificar os eventos de início e término nas linhas
+  // Primeira passagem: Encontrar todos os eventos nas linhas
   for (const linha of linhas) {
     for (const r of regexes) {
       const match = linha.match(r.regex);
       if (match) {
-        eventos.push({ tipo: r.tipo, hora: match[1].replace(/\s/g, "").padStart(5, "0") }); // Remover espaços e padronizar
-        break;
+        eventosEncontrados.push({ tipo: r.tipo, hora: match[1].replace(/\s/g, "").padStart(5, "0") });
+        break; // Importante: parar após a primeira correspondência na linha
       }
     }
   }
@@ -29,13 +26,11 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
   let inicioPendente = null;
   const alertas = [];
 
-  // Organizar os eventos de início e término
-  for (const evento of eventos) {
+  // Segunda passagem: Parear os eventos de início e término
+  for (const evento of eventosEncontrados) {
     if (evento.tipo === "inicio") {
       if (inicioPendente) {
-        alertas.push(
-          `⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`
-        );
+        alertas.push(`⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`);
       }
       inicioPendente = evento.hora;
     } else if (evento.tipo === "termino" && inicioPendente) {
@@ -46,9 +41,7 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
 
   // Caso ainda haja um início pendente no final
   if (inicioPendente) {
-    alertas.push(
-      `⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`
-    );
+    alertas.push(`⚠️ Início de ronda às ${inicioPendente} sem término correspondente.`);
   }
 
   // Preparar o relatório com alinhamento
@@ -62,14 +55,9 @@ function gerarRelatorio(texto, residencial, dataStr, escalaStr) {
 
   const totalRondas = rondas.length;
   const dataPlantao = dataStr.split("/").slice(0, 3).join("/");
-
-  // Ajustar a escala
   const escala = escalaStr === "06-18" ? "06h às 18h" : "18h às 06h";
 
-  // Retornar o relatório final
-  return `Plantão ${dataPlantao} (${escala})\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join(
-    "\n"
-  )}`;
+  return `Plantão ${dataPlantao} (${escala})\n📍 Condomínio: ${residencial}\n\n${relatorioLinhas}\n\n✅ Total: ${totalRondas} rondas no plantão\n\n${alertas.join("\n")}`;
 }
 
 module.exports = { gerarRelatorio };
