@@ -25,17 +25,20 @@ app.post("/gerar_relatorio", (req, res) => {
       .json({ erro: "Texto, residencial, data e escala são obrigatórios." });
   }
 
-  // Verificar se a data está no formato correto (ex: 06/05/2025)
-  const dataRegex = /^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+  // Verificar se a data está no formato correto (ex: AAAA-MM-DD)
+  const dataRegex = /^\d{4}-\d{2}-\d{2}$/;
   if (!dataRegex.test(data)) {
     return res
       .status(400)
-      .json({ erro: "Data no formato inválido. Use DD/MM/AAAA." });
+      .json({ erro: "Data no formato inválido. Use AAAA-MM-DD." });
   }
 
   try {
+    // Formatar a data para DD/MM/AAAA para a função gerarRelatorio
+    const dataFormatada = data.split("-").reverse().join("/");
+
     // Gerar o relatório
-    const relatorio = gerarRelatorio(texto, residencial, data, escala);
+    const relatorio = gerarRelatorio(texto, residencial, dataFormatada, escala);
     res.json({ relatorio }); // Retorna o relatório em formato JSON
   } catch (err) {
     // Caso algum erro ocorra ao gerar o relatório
