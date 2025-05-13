@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerador de Relatórios de Rondas</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
-</head>
-<body>
-  <div class="container">
-    <h1>Gerador de Relatórios de Rondas</h1>
-    <div class="main-content"> <div class="input-area">
-        <form id="formRelatorio" onsubmit="gerarRelatorio(event)">
-          <label for="textoRondas">Cole os dados das rondas:</label>
-          <textarea
-            id="textoRondas"
-            rows="10"
-            placeholder="Cole os dados das rondas aqui..."
-            required
-          ></textarea>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Relatórios de Rondas</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gerador de Relatórios de Rondas</h1>
+      <div class="main-content">
+        <div class="input-area">
+          <form id="formRelatorio" onsubmit="gerarRelatorio(event)">
+            <label for="textoRondas">Cole os dados das rondas:</label>
+            <textarea
+              id="textoRondas"
+              rows="10"
+              placeholder="Cole os dados das rondas aqui..."
+              required
+            ></textarea>
 
-          <label for="residencialSelect">Escolha o Residencial:</label>
-          <select
-            id="residencialSelect"
-            onchange="document.getElementById('nomeResidencial').value = this.value"
-          >
-            <option value="">-- Selecione --</option>
-            <option value="Vevey">VEVEY</option>
-            <option value="Zermatt">ZERMATT</option>
-            <option value="Arosa">AROSA</option>
-            <option value="Davos">DAVOS</option>
-          </select>
+            <button type="button" onclick="limparTextoRondas()">Limpar</button>
+            <label for="residencialSelect">Escolha o Residencial:</label>
+            <select
+              id="residencialSelect"
+              onchange="document.getElementById('nomeResidencial').value = this.value"
+            >
+              <option value="">-- Selecione --</option>
+              <option value="Vevey">VEVEY</option>
+              <option value="Zermatt">ZERMATT</option>
+              <option value="Arosa">AROSA</option>
+              <option value="Davos">DAVOS</option>
+            </select>
 
-          <label for="nomeResidencial">Ou digite o nome do Residencial:</label>
-          <input
-            type="text"
-            id="nomeResidencial"
-            placeholder="Digite o nome do residencial"
-            required
-          />
+            <label for="nomeResidencial"
+              >Ou digite o nome do Residencial:</label
+            >
+            <input
+              type="text"
+              id="nomeResidencial"
+              placeholder="Digite o nome do residencial"
+              required
+            />
 
-          <label for="dataRelatorio">Data:</label>
-          <input
-            type="date"
-            id="dataRelatorio"
-            required
-          />
+            <label for="dataRelatorio">Data:</label>
+            <input type="date" id="dataRelatorio" required />
 
-          <label for="escala">Escolha a Escala:</label>
-          <select id="escala" required>
-            <option value="18-06">18h às 06h</option>
-            <option value="06-18">06h às 18h</option>
-          </select>
+            <label for="escala">Escolha a Escala:</label>
+            <select id="escala" required>
+              <option value="18-06">18h às 06h</option>
+              <option value="06-18">06h às 18h</option>
+            </select>
 
-          <button type="submit">Gerar Relatório</button>
-        </form>
+            <button type="submit">Gerar Relatório</button>
+          </form>
+        </div>
+        <div class="output-area">
+          <h2>Relatório Gerado</h2>
+          <div id="resultado"></div>
+        </div>
       </div>
-      <div class="output-area">
-        <h2>Relatório Gerado</h2>
-        <div id="resultado"></div>
-      </div>
+      <footer id="footer">
+        <p>Desenvolvido por Luis Eduardo Rodrigues Royo</p>
+      </footer>
     </div>
-    <footer id="footer">
-      <p>Desenvolvido por Luis Eduardo Rodrigues Royo</p>
-    </footer>
-  </div>
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

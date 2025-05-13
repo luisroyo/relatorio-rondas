@@ -42,3 +42,7 @@ async function gerarRelatorio(event) {
     resultadoDiv.textContent = `Erro na comunicação com o servidor: ${error.message}`;
   }
 }
+
+function limparTextoRondas() {
+  document.getElementById("textoRondas").value = "";
+}
